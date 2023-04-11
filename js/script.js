@@ -12,14 +12,25 @@ createApp(
     {
         data(){
             return {
-                title: 'Vue Email List'
+                title: 'Vue Email List',
+                basePath: 'https://flynn.boolean.careers/exercises/api/',
+                emailNum: 10,
+                emails: []
             }
         },
         methods : {
-
+            getMails(){
+                this.emails = [];
+                for (let i = 0; i < this.emailNum; i++){
+                    axios.get(this.basePath + 'random/mail').then((res) => {
+                        console.log(res.data.response);
+                        this.emails.push(res.data.response);
+                    })
+                }    
+            }
         },
         mounted(){
-
+            this.getMails();
         }
     }
 ).mount('#app');
